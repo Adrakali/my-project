@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import { postRoutes } from "./routes/postRoutes.js";
 import { userRoutes } from "./routes/userRoutes.js";
 
+const PORT = process.env.PORT || 4000;
+const MONGODB_URI = process.env.MONGODB_URI;
+
 const app = express();
 
 app.use(express.json());
@@ -11,13 +14,13 @@ app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 
 mongoose
-  .connect(process.env.MONGODB_URI, { dbName: "demo_db" })
+  .connect(MONGODB_URI)
   .then(() => {
     console.log("Connected to Database");
-    app.listen(process.env.PORT, () => {
-      console.log("Server is running on port 4000");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.log(err.message);
   });
