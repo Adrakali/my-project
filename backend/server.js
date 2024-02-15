@@ -11,7 +11,7 @@ app.use("/api/posts", postRoutes);
 app.use("/api/users", userRoutes);
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017", { dbName: "demo_db" })
+  .connect(process.env.MONGODB_URI, { dbName: "demo_db" })
   .then(() => {
     console.log("Connected to Database");
     app.listen(process.env.PORT, () => {
